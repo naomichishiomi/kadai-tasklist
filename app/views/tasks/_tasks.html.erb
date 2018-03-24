@@ -1,0 +1,24 @@
+<ul class="media-list">
+  <% tasks.each do |task| %>
+    <li class="media">
+      <div class="media-body">
+        <div>
+          <%= link_to task.user.name, user_path(task.user) %> <span class="text-muted">posted at <%= task.created_at %></span>
+        </div>
+        <div>
+          <p>ステータス：<%= task.status %></p>
+        </div>
+        <div>
+          <p>タスク：<%= task.content %></p>
+        </div>
+        
+        <% if current_user == task.user %>
+          <%= link_to '編集', edit_task_path(task), class: "btn btn-danger btn-xs" %>          
+          <%= link_to "削除", task, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-danger btn-xs" %>
+        <% end %>
+        
+      </div>
+    </li>
+  <% end %>
+  <%= paginate tasks %>
+</ul>

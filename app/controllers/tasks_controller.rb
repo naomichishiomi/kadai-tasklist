@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy, :update]
+  before_action :correct_user, only: [:destroy, :update, :edit]
   
   def index
     @tasks = Task.all
@@ -23,7 +23,7 @@ class TasksController < ApplicationController
     else
       @tasks = current_user.tasks.order('created_at DESC').page(params[:page])
       flash.now[:danger] = "Taskが作成できませんでした"
-      render :toppages/index
+      render "toppages/index"
     end
   end
   
